@@ -544,17 +544,17 @@ void Project::resetToDefaultTimeline()
     Track voice;
     voice.type = TrackType::Audio;
     voice.name = QStringLiteral("VOZ");
-    voice.showwaveform = true;
+    voice.showWaveform = true;
 
     Track music;
     music.type = TrackType::Audio;
     music.name = QStringLiteral("MÚSICA");
-    music.showwaveform = true;
+    music.showWaveform = true;
 
     Track sfx;
     sfx.type = TrackType::Audio;
     sfx.name = QStringLiteral("SFX");
-    sfx.showwaveform = true;
+    sfx.showWaveform = true;
 
     m_tracks = { video, voice, music, sfx };
     ensureTrackIds();

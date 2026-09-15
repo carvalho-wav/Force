@@ -537,10 +537,28 @@ MediaAsset assetFromJsonV1(const QJsonObject &object)
 
 void Project::resetToDefaultTimeline()
 {
-    m_tracks = {
-        {.type = TrackType::Video},
-    };
+    Track video;
+    video.type = TrackType::Video;
+    video.name = QStringLiteral("Vídeo");
+
+    Track voice;
+    voice.type = TrackType::Audio;
+    voice.name = QStringLiteral("VOZ");
+    voice.showwaveform = true;
+
+    Track music;
+    music.type = TrackType::Audio;
+    music.name = QStringLiteral("MÚSICA");
+    music.showwaveform = true;
+
+    Track sfx;
+    sfx.type = TrackType::Audio;
+    sfx.name = QStringLiteral("SFX");
+    sfx.showwaveform = true;
+
+    m_tracks = { video, voice, music, sfx };
     ensureTrackIds();
+
     m_id = QUuid::createUuid().toString(QUuid::WithoutBraces);
     m_createdAt = QDateTime::currentDateTimeUtc();
     m_modifiedAt = m_createdAt;

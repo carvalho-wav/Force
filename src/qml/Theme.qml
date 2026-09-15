@@ -209,8 +209,8 @@ QtObject {
     readonly property color panelSecondaryForeground: _palette.panelSecondaryForeground
 
     // --- Colors: shared semantic (identical in both themes) -----------------------
-    readonly property color primary: "#F8B81C"
-    readonly property color primaryForeground: "#221900"
+    readonly property color primary: "#FFFFFF"
+    readonly property color primaryForeground: "#050505"
     // `primary` as a *foreground* on a panel surface. The brand amber is a fill
     // colour: on the light panel it lands at 1.69:1, so a selected tab tinted with
     // it was effectively invisible. Dark mode keeps the amber (9.8:1); light mode

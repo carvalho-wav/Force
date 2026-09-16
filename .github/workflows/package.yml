@@ -900,22 +900,39 @@ jobs:
           mkdir -p dist
           OUT="dist/Drift-${VERSION}-${ABI}.apk"
 
-          if [ -z "${KEYSTORE_B64:-}" ]; then
-            echo "::warning::ANDROID_KEYSTORE_BASE64 not set; uploading unsigned APK"
-            cp "$APK" "$OUT"
-            exit 0
-          fi
-
           BT="$(ls -d "$ANDROID_SDK_ROOT"/build-tools/* | sort -V | tail -1)"
-          KS="$RUNNER_TEMP/release.jks"
-          printf '%s' "$KEYSTORE_B64" | base64 -d > "$KS"
-          "$BT/zipalign" -p -f 4 "$APK" "$RUNNER_TEMP/aligned.apk"
-          "$BT/apksigner" sign \
-            --ks "$KS" --ks-pass env:KEYSTORE_PASSWORD --key-pass env:KEYSTORE_PASSWORD \
-            --ks-key-alias "$KEY_ALIAS" \
-            --out "$OUT" "$RUNNER_TEMP/aligned.apk"
-          "$BT/apksigner" verify --print-certs "$OUT"
-          rm -f "$KS"
+KS="$RUNNER_TEMP/release.jks"
+
+if [ -z "${KEYSTORE_B64:-}" ]; then
+  echo "::warning::ANDROID_KEYSTORE_BASE64 not set; creating temporary CI test keystore"
+  keytool -genkeypair -v \
+    -keystore "$KS" \
+    -storepass android \
+    -keypass android \
+    -alias androiddebugkey \
+    -keyalg RSA \
+    -keysize 2048 \
+    -validity 10000 \
+    -dname "CN=Android CI,O=Force Effects,C=BR"
+  SIGN_PASSWORD="android"
+  SIGN_ALIAS="androiddebugkey"
+else
+  printf '%s' "$KEYSTORE_B64" | base64 -d > "$KS"
+  SIGN_PASSWORD="$KEYSTORE_PASSWORD"
+  SIGN_ALIAS="$KEY_ALIAS"
+fi
+
+"$BT/zipalign" -p -f 4 "$APK" "$RUNNER_TEMP/aligned.apk"
+
+"$BT/apksigner" sign \
+  --ks "$KS" \
+  --ks-pass "pass:$SIGN_PASSWORD" \
+  --key-pass "pass:$SIGN_PASSWORD" \
+  --ks-key-alias "$SIGN_ALIAS" \
+  --out "$OUT" "$RUNNER_TEMP/aligned.apk"
+
+"$BT/apksigner" verify --print-certs "$OUT"
+rm -f "$KS"
 
       - uses: actions/upload-artifact@v4
         with:

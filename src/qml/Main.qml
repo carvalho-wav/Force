@@ -207,7 +207,7 @@ ApplicationWindow {
         // not a layout, and must not be written over the user's arrangement.
         if (window.previewFullscreen)
             return
-        const prefix = window.workspaceLayout + "/"
+        const prefix = "force-effects-v2/" + window.workspaceLayout + "/"
         if (outerSplit.height > 0 && innerSplit.height > 0)
             window.panelFractions[prefix + "editorRow"] = innerSplit.height / outerSplit.height
         if (innerSplit.width > 0) {
@@ -224,7 +224,7 @@ ApplicationWindow {
     // is the point: from here on the panel keeps the size the user chose, exactly as
     // it does after a handle drag.
     function applySavedPanelSizes() {
-        const prefix = window.workspaceLayout + "/"
+        const prefix = "force-effects-v2/" + window.workspaceLayout + "/"
         const editorRow = LayoutMemory.panelFraction(prefix + "editorRow", 0)
         if (editorRow > 0 && outerSplit.height > 0)
             innerSplit.SplitView.preferredHeight = outerSplit.height * editorRow

@@ -498,22 +498,9 @@ Item {
         visible: false
         title: qsTr("Edit")
         doneText: qsTr("Done")
-        // Edits here land on the timeline as they are made, so the sheet has to let you
-        // watch them: playback keeps running and the preview stays scrubbable behind it.
-        // The 0.64 detent this used to carry is gone with it — the common edits moved to
-        // the clip toolbar, so it no longer has to open on "barely two properties".
         blocking: false
-        onDoneRequested: root.closeSheets()
-        visible: false
-        onClosed: {
-            if (sheetKind === "properties") {
-                sheetKind = ""
-                if (rail.activeId === "edit")
-                    rail.activeId = ""
-            }
-        }
+    }
 
-        PropertiesPanel {
             id: propertiesPanel
             visible: false
             width: 280
@@ -527,18 +514,15 @@ Item {
     }
 
     ExportDialog {
+        id: exportDialog
+    }
+
     AndroidDesktopWorkspace {
         id: desktopWorkspace
         anchors.fill: parent
 
         onBackRequested: root.backRequested()
-        onExportRequested: {
-            if (exportDialog)
-                exportDialog.open()
-        }
-    }
-
-        id: exportDialog
+        onExportRequested: exportDialog.open()
     }
 
     ExportProgressDialog {

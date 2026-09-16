@@ -541,22 +541,7 @@ void Project::resetToDefaultTimeline()
     video.type = TrackType::Video;
     video.name = QStringLiteral("Vídeo");
 
-    Track voice;
-    voice.type = TrackType::Audio;
-    voice.name = QStringLiteral("VOZ");
-    voice.showWaveform = true;
-
-    Track music;
-    music.type = TrackType::Audio;
-    music.name = QStringLiteral("MÚSICA");
-    music.showWaveform = true;
-
-    Track sfx;
-    sfx.type = TrackType::Audio;
-    sfx.name = QStringLiteral("SFX");
-    sfx.showWaveform = true;
-
-    m_tracks = { video, voice, music, sfx };
+    m_tracks = { video };
     ensureTrackIds();
 
     m_id = QUuid::createUuid().toString(QUuid::WithoutBraces);

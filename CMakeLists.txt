@@ -915,6 +915,7 @@ qt_add_qml_module(drift
         src/qml/AndroidProjectSheet.qml
         src/qml/AndroidHome.qml
         src/qml/AndroidEditor.qml
+        src/qml/AndroidDesktopWorkspace.qml
         src/qml/AndroidPreview.qml
         src/qml/AndroidTimeline.qml
         src/qml/AndroidTopBar.qml

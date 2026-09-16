@@ -238,6 +238,7 @@ Item {
 
         SplitView {
             id: editorSplit
+            visible: false
             anchors.left: assetsPanel.right
         anchors.right: propertiesPanel.left
         width: Math.max(0, parent.width - assetsPanel.width - propertiesPanel.width)
@@ -479,6 +480,7 @@ Item {
 
         AssetsPanel {
             id: assetsPanel
+            visible: false
             width: 220
             anchors.left: parent.left
             anchors.top: parent.top
@@ -493,6 +495,7 @@ Item {
 
     AndroidBottomSheet {
         id: propertiesSheet
+        visible: false
         title: qsTr("Edit")
         doneText: qsTr("Done")
         // Edits here land on the timeline as they are made, so the sheet has to let you
@@ -512,6 +515,7 @@ Item {
 
         PropertiesPanel {
             id: propertiesPanel
+            visible: false
             width: 280
             anchors.right: parent.right
             anchors.top: parent.top
@@ -523,6 +527,17 @@ Item {
     }
 
     ExportDialog {
+    AndroidDesktopWorkspace {
+        id: desktopWorkspace
+        anchors.fill: parent
+
+        onBackRequested: root.backRequested()
+        onExportRequested: {
+            if (exportDialog)
+                exportDialog.open()
+        }
+    }
+
         id: exportDialog
     }
 

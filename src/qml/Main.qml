@@ -928,7 +928,7 @@ ApplicationWindow {
                         // size: on the first layout pass width/height are 0, and
                         // Qt SplitView asserts when maximum < minimum (qBound).
                         SplitView.preferredHeight: window.previewFullscreen
-                                                   ? outerSplit.height : outerSplit.height * 0.5
+                                                   ? outerSplit.height : outerSplit.height * 0.32
                         SplitView.minimumHeight: window.previewFullscreen
                                                  ? outerSplit.height
                                                  : Math.min(outerSplit.height, outerSplit.height * 0.3)
@@ -993,7 +993,7 @@ ApplicationWindow {
                         PropertiesPanel {
                             id: propertiesPanel
                             visible: !window.previewFullscreen
-                            SplitView.preferredWidth: Math.max(0, innerSplit.width * 0.25)
+                            SplitView.preferredWidth: Math.max(0, innerSplit.width * 0.24)
                             SplitView.minimumWidth: Math.min(240, Math.max(0, innerSplit.width * 0.2))
                             // Empty-state browse CTAs jump the assets panel to the
                             // matching library tab.
@@ -1007,7 +1007,7 @@ ApplicationWindow {
                         id: timelinePanel
                         visible: !window.previewFullscreen
                         propertiesTab: propertiesPanel.currentTabId
-                        SplitView.preferredHeight: Math.max(0, outerSplit.height * 0.5)
+                        SplitView.preferredHeight: Math.max(0, outerSplit.height * 0.32)
                         SplitView.minimumHeight: Math.min(140, Math.max(0, outerSplit.height * 0.2))
                     }
                 }

@@ -247,7 +247,7 @@ Item {
             // split cannot divide into a usable preview and a usable timeline. Side by
             // side it divides the axis there is room on instead.
             readonly property bool sideBySide: width > height * 1.2
-            orientation: sideBySide ? Qt.Horizontal : Qt.Vertical
+            orientation: Qt.Horizontal
 
             // Both minimums used to clamp to the whole pane (Math.min(height, ...)), so
             // together they could demand more than the pane had and SplitView let the last

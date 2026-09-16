@@ -238,7 +238,9 @@ Item {
 
         SplitView {
             id: editorSplit
-            width: parent.width
+            anchors.left: assetsPanel.right
+        anchors.right: propertiesPanel.left
+        width: Math.max(0, parent.width - assetsPanel.width - propertiesPanel.width)
             // Column skips hidden children but their `height` still reads non-zero,
             // so the two strips only count while they are on screen.
             height: Math.max(0, parent.height - (topBar.visible ? topBar.height : 0)
@@ -246,8 +248,8 @@ Item {
             // Landscape and multi-window leave roughly 260px of height, which a vertical
             // split cannot divide into a usable preview and a usable timeline. Side by
             // side it divides the axis there is room on instead.
-            readonly property bool sideBySide: width > height * 1.2
-            orientation: Qt.Horizontal
+            readonly property bool sideBySide: false
+            orientation: Qt.Vertical
 
             // Both minimums used to clamp to the whole pane (Math.min(height, ...)), so
             // together they could demand more than the pane had and SplitView let the last
@@ -476,8 +478,11 @@ Item {
 
         AssetsPanel {
             id: assetsPanel
-            anchors.fill: parent
-            sheetMode: true
+            width: 220
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            sheetMode: false
             // Text, subtitles, stickers and shapes land at the playhead the moment
             // they are tapped, so the sheet has done its job and is now covering
             // the result.
@@ -505,8 +510,11 @@ Item {
 
         PropertiesPanel {
             id: propertiesPanel
-            anchors.fill: parent
-            sheetMode: true
+            width: 280
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            sheetMode: false
             onBrowseEffectsRequested: root.openAssetsTab("effects")
             onBrowseAudioEffectsRequested: root.openAssetsTab("sounds")
         }

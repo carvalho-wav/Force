@@ -226,7 +226,7 @@ Item {
         AndroidTopBar {
             id: topBar
             width: parent.width
-            visible: !root.previewFullscreen
+            visible: false
             onBackRequested: root.backRequested()
             onExportRequested: exportDialog.openDialog()
             onExportProgressRequested: {
@@ -353,7 +353,7 @@ Item {
 
             Item {
                 id: timelinePane
-                visible: !root.previewFullscreen
+        visible: true
                 SplitView.fillHeight: true
                 SplitView.fillWidth: true
                 SplitView.minimumHeight: editorSplit.timelineMin
@@ -445,7 +445,7 @@ Item {
         AndroidBottomRail {
             id: rail
             width: parent.width
-            visible: !root.previewFullscreen
+            visible: false
             onTabRequested: (tabId) => root.openAssetsTab(tabId)
             onEditRequested: root.openPropertiesSheet()
             onAddRequested: root.openAddMenu()
@@ -469,6 +469,7 @@ Item {
 
     AndroidBottomSheet {
         id: assetsSheet
+        visible: false
         onClosed: {
             if (sheetKind === "assets") {
                 sheetKind = ""
@@ -500,6 +501,7 @@ Item {
         // the clip toolbar, so it no longer has to open on "barely two properties".
         blocking: false
         onDoneRequested: root.closeSheets()
+        visible: false
         onClosed: {
             if (sheetKind === "properties") {
                 sheetKind = ""

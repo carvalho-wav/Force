@@ -510,8 +510,6 @@ Item {
             sheetMode: false
             onBrowseEffectsRequested: root.openAssetsTab("effects")
             onBrowseAudioEffectsRequested: root.openAssetsTab("sounds")
-        }
-    }
 
     ExportDialog {
         id: exportDialog
